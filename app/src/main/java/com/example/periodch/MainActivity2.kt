@@ -18,7 +18,7 @@ class MainActivity2 : AppCompatActivity() {
         if (isNumeric(element.toString())) {
             if (element != null) {
                 electronNum = element.toInt()
-                fullName.setText(ElementsData.elements[electronNum])
+                fullName.setText(ElementsData.elements[electronNum - 1])
             }
         }
         else {

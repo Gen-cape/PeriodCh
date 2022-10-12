@@ -6,23 +6,31 @@ import android.widget.TextView
 import com.example.periodh.ElementsData
 
 class MainActivity2 : AppCompatActivity() {
+    fun isNumeric(toCheck: String): Boolean {
+        return toCheck.all { char -> char.isDigit() }
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main2)
         var element = intent.extras?.getString("element")
         var electronNum: Int = 1
-        if (element != null || element is String) {electronNum = ElementsData.elements.indexOf(element)}
-        else {
+        val fullName : TextView = findViewById(R.id.elementDisplay)
+        if (isNumeric(element.toString())) {
             if (element != null) {
                 electronNum = element.toInt()
+                fullName.setText(ElementsData.elements[electronNum])
+            }
+        }
+        else {
+            if (element != null || element is String) {
+                electronNum = ElementsData.elements.indexOf(element) + 1
+                fullName.setText(element.toString())
             }
         }
         val spdf = mapOf("s" to 0, "p" to 1, "d" to 2, "f" to 3)
         val orbitals = arrayOf("1s^", "2s^", "2p^", "3s^", "3p^", "4s^", "3d^", "4p^",
             "5s^", "4d^", "5p^", "6s^", "4f^", "5d^", "6p^", "7s^", "5f^", "6d^", "7p^")
         val exceptions = mapOf(24 to "1s^2 2s^2 2p^6 3s^2 3p^6 4s^1 3d^5" , 29 to "1s^2 2s^2 2p^6 3s^2 3p^6 4s^1 3d^10")
-        val fullName : TextView = findViewById(R.id.elementDisplay)
-        fullName.setText(element.toString())
         var configuration = ""
         var orbital = ""
         var e = 0
